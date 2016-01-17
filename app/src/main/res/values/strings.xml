@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">DAC</string>
+    <string name="action_settings">Settings</string>
+    <string name="operator_prompt">Choose an Operator</string>
+
+    <string-array name="operator_array">
+        <item>[+] Plus</item>
+        <item>[-] Minus</item>
+        <item>[*] Multiply</item>
+        <item>[/] Divide</item>
+        <item>[%] Modulus</item>
+        <item>[^] Power</item>
+    </string-array>
+    <string name="title_activity_display_calculator_result">DisplayCalculatorResult</string>
+</resources>
