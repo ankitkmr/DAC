@@ -67,57 +67,47 @@ public class CS654DAC extends AppCompatActivity {
             RequestQueue queue = Volley.newRequestQueue(this);
             String url = "http://10.0.2.2:5000/";
 
-            ConnectivityManager connectivityManager
-                    = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-            if (activeNetworkInfo != null && activeNetworkInfo.isConnected()) {
-
-                StringRequest postRequest = new StringRequest(Request.Method.POST, url,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                // response
-                                Log.d("Response", response);
-                                textView2.setText("Result : " + response);
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                // error
-                                Log.d("Error Response", error.getMessage());
-                                textView2.setText("OOPs...that didn't work out");
-                            }
+            StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            // response
+                            Log.d("Response", response);
+                            textView2.setText("Result : " + response);
                         }
-                ) {
-                    @Override
-                    protected Map<String, String> getParams() {
-                        Map<String, String> params = new HashMap<String, String>();
-                        params.put("operand1", operand1);
-                        params.put("operand2", operand2);
-                        params.put("operator", operator.charAt(1) + "");
-
-                        return params;
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            // error
+                            Log.d("Error Response", error.getMessage());
+                            textView2.setText("OOPs...that didn't work out");
+                        }
                     }
-                };
-                queue.add(postRequest);
-                textView2.setText("Calculating...");
+            ) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("operand1", operand1);
+                    params.put("operand2", operand2);
+                    params.put("operator", operator.charAt(1) + "");
 
-                flag = 1;
-                button.setText("RESET");
-            } else {
-                flag = 0;
-                editText.setText(null);
-                editText2.setText(null);
-                spinner.setSelection(0);
-                button.setText("CALCULATE");
-                textView2.setText("Enter Operands above and Select Operator");
-
-            }
+                    return params;
+                }
+            };
+            queue.add(postRequest);
+            textView2.setText("Calculating...");
+            flag = 1;
+            button.setText("RESET");
         }
-        else{
-            textView2.setText("Not able to access Internet!! Try again after connecting.");
-        }
+        else {
+            flag = 0;
+            editText.setText(null);
+            editText2.setText(null);
+            spinner.setSelection(0);
+            button.setText("CALCULATE");
+            textView2.setText("Enter Operands above and Select Operator");
 
+        }
     }
 }
